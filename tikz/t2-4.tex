@@ -1,0 +1,12 @@
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,semithick]
+
+  \node[initial,state]      (A)                 {$A$};
+  \node[initial,state]      (B) [right of=A]    {$B$};
+  \node[initial,state]      (C) [right of=B]    {$C$};
+  \node[accepting, state]   (D) [right of=C]    {$D$};
+
+  \path (A) edge [loop above] node {$a, b$} (A)
+        (A) edge              node {$a$}    (B)
+        (B) edge              node {$a, b$} (C)
+        (C) edge              node {$a, b$} (D);
+\end{tikzpicture}

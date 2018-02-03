@@ -1,0 +1,59 @@
+\section{Teoría de lenguajes}
+\subsection{Teoría de lenguajes (1)}
+\begin{easylist}[itemize]
+& Alfabeto: conjunto finito. Sus elementos son símbolos. Ejemplo: $\Sigma = \{a, b\}$.
+& Palabra sobre un alfabeto. Lista ordenada de símbolos de un alfabeto: $ab$, $bbb$, $a$, $\lambda$.
+& Denotamos por $\lambda$ a la palabra vacía; esto es, de longitud 0. Siempre se puede formar $\lambda$ sobre cualquier alfabeto, aunque no siempre $\lambda$ pertenece a $\Sigma$.
+& Usamos $u$, $v$, $w$ para denotar palabras.
+& La longitud de una palabra $u$ es $|u|$. Así $|ab| = 2$, $|bba| = 3$ y $|\lambda| = 0$.
+& También abusamos de la notación para contar el número de ocurrencias dentro de una palabra. Por ejemplo, $|ab|_a = 1, |bbb|_b = 3, |bbb|_{bb} = 2$ (en posición 1 y 2).
+& Símbolo $i$-ésimo: $ab[1] = a$, $ab[2] = b$.
+& Operación producto o concatenación: $u\cdot v = uv$. Por ejemplo $(ab) \cdot (bbb) = abbbb$.
+& El neutro del producto es $\lambda$ (porque $\lambda \cdot u = u$); es asociativo: $u\cdot (v\cdot w) = (u\cdot v) \cdot w$.
+& $\Sigma^*$ son todas las palabras que se pueden construir sobre $\Sigma$. Por ejemplo, si $\Sigma = \{a,b\}$, entonces $\Sigma^* = \{\lambda, a, b, aa, ab, ba, bb, \dots\}$.
+& Un lenguaje $L$ sobre $\Sigma^*$ es cualquier subconjunto de $\Sigma^*$ ($L \subseteq \Sigma^*$). Por ejemplo, el lenguaje de las palabras sobre $\Sigma$ de longitud múltiple de 2 es $\{w \in \{a, b\}^*\colon |w| \in \dot 2\} = \{\lambda, aa, ab, ba, bb, aaaa,\dots\}$.\footnote{Cabe recordar que $\dot k$ son los múltiplos de $k$}
+& Otro ejemplo: las palabras que tienen alguna $a$: $\{w \in \{a, b\}^* \colon \exists w_1, w_2 \colon w = w_1 a w_2\}$. Es equivalente a $\{w \in \{a, b\}^* \colon |w|_a > 0\}$.
+& Y otro más: las palabras en las que toda ocurrencia de $a$ va seguida de una ocurrencia de $b$: $\{w \in \{a, b\}^* \colon \forall w_1, w_2 \colon (w = w_1 a w_2 \implies \exists w_2' \colon w_2 = bw_2')\}$.\footnote{En el vídeo está mal.} También podemos decir que $w$ no tiene ocurrencias de $aa$ $\land$ ($w$ es la palabra vacía $\lor$ existe una $w'$ tal que $w = bw'$).
+\end{easylist}
+
+\subsection{Teoría de lenguajes (2)}
+\begin{easylist}[itemize]
+& Con $\Lambda$ notamos el lenguaje con solo la palabra vacía: $\Lambda = \{\lambda\}$. Cabe notar que $\Lambda$ no es el conjunto vacío, $\varnothing$, pues tiene un elemento que es la palabra vacía.
+& Concatenación de dos lenguajes: $L_1 \cdot L_2 = \{w_1 \cdot w_2 \colon w_1 \in L_1 \land w_2 \in L_2 \}$. Esto es $\{w \colon \exists w_1 \in L_1, \exists w_2 \in L_2 \colon w = w_1w_2)\}$. 
+& Ejemplo: $\{a, bb\} \cdot \{b, ba\} = \{ab, aba, bbb, bbba\}$. 
+& El neutro de la concatenación de lenguajes es $\Lambda$. Así $\Lambda \cdot L = L \cdot \Lambda = L$.
+& El lenguaje vacío, pero, concatenado con cualquier otro lenguaje sigue dando el lenguaje vacío: $\varnothing \cdot L = L \cdot \varnothing = \varnothing$. Esto es porque no se puede construir ninguna palabra eligiendo una del lenguaje vacío y concatenándola con otra.
+& La concatenación de lenguajes es asociativa: $L_1 (L_2 L_3) = (L_1 L_2) L_3$.
+& Exponenciación de palabras: $w^n = w \cdot w \cdots w$ ($n$ veces). Por ejemplo $(ab)^2 = abab$. Por convenio, $w^0 = \lambda$.
+& Se cumple, pues, que $w^n = w \cdot w^{n-1}$ para todo $n\geq 1$.
+& Exponenciación de lenguajes: el mismo concepto: $L^n = L \cdot L \cdots L$ ($n$ veces). Por convenio $L^0 = \Lambda = \{\lambda\}$. De nuevo, $L^n = L \cdot L^{n-1}$ para todo $n\geq 1$.
+& Estrella de Kleene de un lenguaje. $L^*$ da como resultado un nuevo lenguaje. Este contiene aquellas palabras que se pueden obtener a base de escoger un número finito de palabras de $L$ y concatenarlas. Una palabra $w$ es de $L^n$ si y solo sí podemos escoger $n$ palabras $w_1, w_2, \dots w_n$ de $L$, concatenarlas, y obtener así $w$. Así $L^* = L^0 \cup L^1 \cup L^2 \cup \dots$.
+& Por ejemplo: $\{a\}^* = \{\lambda, a, aa, aaa, \dots\}$. Es el conjunto de todas las palabras posibles que se pueden formar con $a$.
+& Otro ejemplo: $\{ab\}^* = \{\lambda, ab, abab, ababab, \dots\}$.
+& Consideramos $\{a, bb\}^* = \{\lambda, a, bb, aa, abb, bba, bbbbb, \dots\}$.
+& Último ejemplo: aplicación de la estrella a las palabras sobre $a$ y $b$ de longitud par. $\{w \in \{a, b\}^* \colon |w| \in \dot 2\}^* = \{w \in \{a, b\}^* \colon |w| \in \dot 2\}$. Nos da lo mismo; es decir, si concatenamos palabras de longitud par volvemos a obtener palabras de longitud par.
+& Operación $+$: muy parecido a la estrella, pero no necesariamente ha de incluir la palabra vacía. Así, $L^+ = L^1 \cup L^2 \cup \dots$.
+& Siempre se verifica que $L^* = L^+ \cup \{\lambda\}$. Así que $\lambda \in L^+ $ si y solo si $\lambda \in L$.
+\end{easylist}
+
+\subsection{Teoría de lenguajes (3)}
+\begin{easylist}[itemize]
+& Reverso\footnote{En catalán, \textit{revessat}.} de una palabra: $w^R$. Da como resultado una palabra de la misma longitud tal que el primer símbolo de $w^R$ es el último de $w$, etcétera. Así $(aabab)^R = babaa$.
+
+& Reverso de la concatenación: $(uv)^R = v^R u^R$.
+& Reverso de un lenguaje: $L^R = \{w^R \colon w \in L\}$.
+& Ejemplo: reverso del conjunto de palabras sobre $a$ y $b$ que empiezan por $a$ es $\{aw \colon w \in \{a,b\}^*\}^R = \{wa \colon w \in \{a,b\}^*\}$ da como resultado el conjunto de palabras sobre $a$ y $b$ que acaban en $a$.
+& Otra propiedad: $(L_1 L_2)^R = L_2^R L_1^R$.
+& Morfismo. Un morfismo es una función que transforma palabras sobre un alfabeto en palabras sobre otro alfabeto, es decir $\sigma\colon \Sigma_1^* \to \Sigma_2^*$. Adicionalmente, cumple que la aplicación del morfismo conmuta con la concatenación de palabras. Es decir, la imagen de la concatenación de dos palabras $u$ y $v$ ($\sigma(uv)$) coincide con la concatenación de las imágenes de las dos palabras: $\sigma(uv) = \sigma(u)\sigma(v)$.
+& Así, $\sigma(a_1a_2\dots a_n) = \sigma(a_1) \sigma(a_2) \dots \sigma (a_n)$ (para calcular la imagen de una palabra, concatenamos imágenes de cada símbolo del lenguaje a través del morfismo).
+& La imagen de la palabra vacía es la palabra vacía: $\sigma(\lambda) = \lambda$.
+& De hecho, para definir un morfismo basta con definir sólamente las imágenes de los símbolos del alfabeto, ya que entonces la imagen de cualquier palabra se puede calcular en términos de las imágenes de los símbolos.
+& Por ejemplo, $\sigma: \{a,b,c\}^* \to \{0, 1\}^*$. Esto es, un morfismo de las palabras de $a$, $b$ y $c$ a los símbolos $0$ y $1$. Para ello solo hace falta dar las imágenes de $a$, $b$ y $c$. Por ejemplo, $\sigma(a) = 0, \sigma(b) = 11$ y $\sigma(c) = \lambda$.
+& Ejemplo de cálculo, teniendo en cuenta las propiedades anteriores: $\sigma(accbacb) = \sigma(a) \sigma(c) \dots = 0\lambda\lambda110\lambda11$. Las letras $c$ se borran, así que el resultado anterior es equivalente a $011011$.
+& Dado $\sigma\colon \Sigma_1^* \to \Sigma_2^*$, para un lenguaje $L\subseteq \Sigma_1 ^*$, definimos el lenguaje imagen de $L$ por $\sigma$ como el lenguaje de las palabras que son imagen de alguna palabra de $L$. Esto es, $\sigma(L) = \{\sigma(w) \colon w \in L\}$. Análogamente, si $L\subseteq \Sigma_2 ^*$, el lenguaje antiimagen de $L$ se define por $\sigma^{-1}(L) = \{w \colon \sigma(w) \in L\}$.
+& Propiedad: $\sigma(L_1L_2) = \sigma(L_1) \sigma(L_2)$.
+& Regla de reescritura o reemplazo. Una regla de reescritura es un par de palabras denotado por $u \to v$. Decimos que esta es la regla que nos permite transformar $u$ en $v$. Por ejemplo, $ab \to bba$ es la regla de reescritura que nos permite transformar $ab$ en $bba$.
+& La aplicación de una regla de reescritura sobre una palabra consiste en encontrar una ocurrencia de la parte izquierda de regla y reemplazarla por la parte derecha de regla. Se denota por $w_1 u w_2 \to_{u \to v} w_1 v w_2$, resaltando, con el subíndice de la flecha, qué regla se está usando.
+& Por ejemplo, la aplicación de $ab\to bba$ es posible sobre $aabab$ si se transforman los símbolos segundo y tercero, resultando $abbaab$.
+& Si $R$ es un conjunto de reglas, por $w\to_R w'$ notamos que $w$ se transforma en $w'$ aplicando una de las reglas de $R$. Por $w\to_R^* w'$, aplicamos 0 o más pasos de reemplazo de reglas de $R$. Con $\to_R^+$, aplicamos 1 o más pasos de reemplazo de $R$. Con $\to_R^i$, aplicamos $i$ pasos de reemplazo de reglas de $R$.
+\end{easylist}

@@ -1,0 +1,16 @@
+\begin{tikzpicture}[level distance = 10mm, sibling distance = 10mm]
+\node {$S$}
+child {node {$a$}}
+child {
+    node {$S$}
+    child {
+        node {$X$}
+        child {node{$a$}}
+        child {
+                node{$X$}
+                child {node{$\lambda$}}
+            }
+        child {node{$b$}}
+    }
+};
+\end{tikzpicture}

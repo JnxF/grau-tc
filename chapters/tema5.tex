@@ -1,0 +1,57 @@
+\section{No regularidad}
+\subsection{No regularidad (1)}
+\begin{easylist}[itemize]
+& En esta sección justificaremos que ciertos lenguajes no son regulares o incontextuales. A este tipo de resultados se les llama, a veces, resultados negativos, pues muestran las limitaciones de expresividad de un cierto formalismo.
+
+& Vamos a ver el lenguaje $\{a^n b^n \colon n \geq 0\}$ no es regular ($\notin \mathrm{Reg}$). Nótese que este contiene exactamente a las palabras que empiezan por un número de $a$s seguidas de el mismo número de $b$s. Por simplicidad, lo llamaremos el lenguaje $a^n b^n$.
+
+& Intuitivamente, ya parece ser no regular, pues los autómatas tienen un número finito de estados. Y no serán suficientes para recordar todas las $a$s necesarias hasta el momento, cosa necesaria para comprobar luego si tenemos tantas $b$s como $a$s.
+
+& Procedemos, por reducción al absurdo, que $\{a^n b^n \colon n \geq 0\} \in \mathrm{Reg}$. Entonces, existe un DFA $A = \langle Q, \Sigma, \delta, q_0, F\rangle$ que lo reconoce. Esto es, tal que $\mathcal L(A) = \{a^n b^n\}$. Sea $N = |Q|$ (el número de estados de $A$). Si ejecutamos el autómata con entrada $a^N$, pasamos por los estados $q_0$, $q_0a$, $q_0a^2$, $\dots$, $q_0 a^N$. En total, hay $N + 1$ estados; como $N + 1 > N = |Q|$, entonces, necesariamente hay dos repetidos. Esto es, existen $0 \leq i < j \leq N$ tales que $q_0 a^i = q_0 a^j$. Pero entonces, $q_0 a^i b^i = q_0 a ^j b ^i$. Este estado tiene que ser aceptador porque $a^i b ^i \in \{a^n b^n\}$. Pero hemos visto que $a ^j b^i \notin \{a^n b^n\}$ (no es aceptador). Contradicción.
+
+& El lenguaje $a^n b^n$ es incontextual, pues lo genera la gramática $S \to aSb | \lambda$.
+
+& Esto justifica que la inclusión de los lenguajes regulares dentro de los lenguajes incontextuales es estricta: $\mathrm{Reg} \subsetneq \mathrm{CFL}$.
+
+& La técnica que acabamos de ver suele funcionar para demostrar la no regularidad de muchos lenguajes. Sin embargo, a veces podremos encontrar una demostración mucho más rápida aprovechando que $a^n b^n $ no es regular.
+
+& Por ejemplo, queremos demostrar que $\overline{\{a^n b^n \colon n \geq 0\}}$ no es regular.
+
+& Procedemos por reducción al absurdo suponiendo que lo es. Como los lenguajes regulares están cerrados por complementario, deducimos que el complementario de este lenguaje también es regular. Pero este complementario es precisamente $a^n b^n $, que hemos demostrado anteriormente que no es regular. Contradicción.
+
+& Lo anterior también se aplica para la unión, la intersección, concatenación, estrella, reverso, morfismo directo y morfismo inverso. Procediendo de forma análoga a como lo hemos hecho aquí, podemos demostrar la no regularidad aprovechándonos de las propiedades anteriores.
+
+& Ahora veremos que $a^n b^n c^n \notin \mathrm{CFL}$ (no es incontextual).
+
+& Procedemos por reducción al absurdo suponiendo que sí lo es. Entonces, existe una gramática incontextual CFG $G = \langle V, \Sigma, \delta, S \rangle$ tal que $\mathcal L(G) = \{a^n b^n c^n\}$ que lo genera. Sin pérdida de generalidad, podemos suponer que $G$ está en forma normal de Chomsky CNF. Sea $N = |V|$ el número de variables de $G$.
+
+& Consideramos la palabra $a^{2^N} b^{2^N} c^{2^N}$, que es del lenguaje, y, por tanto, existe un árbol de derivación de la misma con las reglas de $G$.
+
+& Nótese que el número de hojas de este árbol es mayor a $2^N$. Además, como la gramática está en forma normal de Chomsky, todos los nodos internos tienen aridad como mucho $2$. De hecho, todos tienen aridad $2$ excepto aquellos que quedan por encima de las hojas. Así pues, no es difícil inferir que el árbol tiene altura mayor que $ N$. Ya que los árboles con altura $\leq N$ y aridad como mucho $2$ tienen, a lo sumo, $2^N$ hojas.
+
+& En consecuencia, en el árbol existirá un camino de longitud $N$ desde la raíz hasta una de las hojas. Dado que $N$ es el número de variables distintas de $G$, podemos concluir que existirá un camino desde la raíz hasta una hoja en el que se repita la ocurrencia de una variable, digamos, $x$. Por tanto, existe una derivación de la forma  $S \to_G^* w_1 X w_5 \to_G^* w_1 w_2 X w_4 w_5 \to_G ^* w_1 w_2 w_3w_4w_5 = a^{2^N} b^{2^N} c^{2^N}$ y, en ella, habrá una derivación desde $X$ así: $X \to _G ^+ w_2 X w_4$.
+
+& Como $G$ está en CNF, no hay ni $\lambda$-producciones ni producciones unarias en $G$, de modo que, en la subderivación desde $X$ se genera algún símbolo de más.
+
+& De ello se infiere que, o bien $w_2$, o bien $w_4$, tiene tamaño mayor a 0.
+
+& Por otro lado, podemos modificar la derivación desde $S$ así: $S \to_G^* w_1 X w_5 \to_G^* w_1 w_2 X w_4 w_5 \to_G ^* w_1 w_2 w_2 X w_4 w_4 w_5 \to_G ^* w_1w_2w_2 w_3 w_4 w_4 w_5$. Hemos replicado la subderivación desde $X$ y, de este modo, alcanzamos esta palabra $w$.
+
+& Como es una palabra terminal generable desde el símbolo inicial, tiene que ser del lenguaje. Esto es, $w = w_1 w_2 w_2 w_3 w_4 w_4 w_5 \in \{a^n b^n c^n\}$.
+
+& De ello podemos inferir que $w_2, w_4 \in (a^* + b^* + c^*)$. Esto es, están formadas por un único símbolo.
+
+& Resumiendo, $w$ tiene algún símbolo de más respecto la palabra inicial del lenguaje porque, o bien $w_2$ o $w_4$ es vacío. Pero, o bien no añade $a$s, o bien no añade $b$s, o bien no añade $c$s. Como consecuencia, no puede tener el mismo número de $a$s, $b$s y $c$s. Pero habíamos supuesto que sí que era del lenguaje. Contradicción.
+\end{easylist}
+
+
+
+
+
+\subsection{No regularidad (2)}
+Se trata de una demostración análoga a la anterior.
+
+Consultad \url{youtu.be/0QkKBOTE4a4} para más información.
+
+\begin{easylist}[itemize]
+\end{easylist}

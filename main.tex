@@ -1,0 +1,80 @@
+\documentclass[a4paper, 12pt, titlepage]{article}
+
+%%%% Dimensiones documento
+\usepackage{geometry}
+
+%%%% Idioma y codificación
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+%%%% Tipografía
+\usepackage{amsmath, amssymb}
+\usepackage{newtxtext, newtxmath}
+\usepackage[scaled=0.9]{couriers}
+\let\Sigma\varSigma
+\let\Gamma\varGamma
+\linespread{1.15}
+\usepackage{microtype}
+
+%%%% Formato documento
+\setcounter{tocdepth}{2}
+\usepackage{titlesec}
+\titleformat{\section}[frame]
+{\normalfont}
+{\filright\footnotesize\enspace \bfseries\sffamily TEMA \thesection\enspace}
+{8pt}
+{\Large\bfseries\sffamily\filcenter}
+
+%%%% Enlaces
+\usepackage{hyperref}
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor = {red!50!black},
+    citecolor = {blue!50!black},
+    urlcolor  = {blue!80!black}
+}
+
+%%%% Imagenes y dibujos
+\usepackage{graphicx}
+\graphicspath{{img/}}
+\usepackage{tikz}
+\usetikzlibrary{arrows, automata, babel}
+\tikzset{initial text={}}
+
+%%%% Listings
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily,
+  mathescape,
+  emph={Si, si, No, no, entonces, Entrada, Salida, Rechazar, Aceptar, Colgarse},
+  emphstyle={\underline}
+}
+
+%%%% Miscelánea
+\usepackage[ampersand]{easylist}
+\newcommand{\blanco}{\text{\textit{\textblank}}}
+
+
+%%%% Título
+\title{Apuntes de TC}
+\author{Francisco Martínez Lasaca}
+\date{Curso 2017-2018}
+
+
+\begin{document}
+\maketitle
+
+\include{chapters/prefacio}
+
+\tableofcontents
+
+\include{chapters/tema1}
+\include{chapters/tema2}
+\include{chapters/tema3}
+\include{chapters/tema4}
+\include{chapters/tema5}
+\include{chapters/tema7}
+\include{chapters/tema8}
+\end{document}

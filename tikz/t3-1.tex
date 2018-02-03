@@ -1,0 +1,14 @@
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,semithick]
+
+\node[initial, accepting, state] (A)  {$0$};
+\node[state] (B) [right of=A] {$1$};
+\node[state] (C) [right of=B] {$2$};
+
+
+  \path (A) edge [loop above] node {$0$} (A)
+        (C) edge [loop right] node {$1$} (C)
+        (A) edge [bend left] node {$1$} (B)
+        (B) edge [bend left] node {$1$} (A)
+        (B) edge [bend left] node {$0$} (C)
+        (C) edge [bend left] node {$0$} (B);
+\end{tikzpicture}
